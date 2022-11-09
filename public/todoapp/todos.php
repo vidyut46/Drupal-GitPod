@@ -17,9 +17,17 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $sql = "DELETE FROM todo where id=5";
+    $conn->query($sql);
+    echo "Successfully deleted";
+}
+
 $sql = "SELECT id, todo FROM todo";
 $result = $conn->query($sql);
+
 ?>
+
 <div class="container">
 
 <?php
@@ -28,10 +36,20 @@ if ($result->num_rows > 0) {
   <tr>
     <th>ID</th>
     <th>Item</th>
+    <th>Delete?</th>
   </tr>';
+  $submit = $_SERVER["PHP_SELF"];
   // output data of each row
   while($row = $result->fetch_assoc()) {
-    echo "<tr><td>" . $row["id"]. "</td><td>" . $row["todo"]. "</td></tr>";
+    echo "<tr>
+    <td>" . $row["id"]. "</td>
+    <td>" . $row["todo"]. "</td>
+    <td>
+    <form action=" . $submit . " method='post'>
+      <button type='submit'>Delete</button>
+      </form>
+    </td>
+    </tr>";
   }
   echo '</table>';
 } else {
