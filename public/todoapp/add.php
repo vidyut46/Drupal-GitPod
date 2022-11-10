@@ -5,6 +5,7 @@
   </head>
 <body>
 <?php
+$warning = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $item = $_POST["item"];
   $servername = "localhost";
@@ -19,13 +20,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "INSERT INTO todo (todo) VALUES('$item')";
+    $user = $_POST["user"];
+    if ($user == '') {
+      echo 'username cannot be empty';
+    } else {
+    $sql = "INSERT INTO todo (todo, user) VALUES('$item', '$user')";
     $result = $conn->query($sql);
     echo "Successfully added";
+    }
 }
 ?>
-
 <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+<input type="text" name="user" required>
 Item :<textarea name="item" rows="5" cols="40"></textarea>
 <input type="submit">
 </form>

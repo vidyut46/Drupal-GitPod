@@ -18,12 +18,13 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $sql = "DELETE FROM todo where id=5";
+    $id = $_POST["id"];
+    $sql = "DELETE FROM todo where id=$id";
     $conn->query($sql);
     echo "Successfully deleted";
 }
-
-$sql = "SELECT id, todo FROM todo";
+$user = $_GET["user"];
+$sql = "SELECT id, todo FROM todo where user='$user'";
 $result = $conn->query($sql);
 
 ?>
@@ -46,6 +47,7 @@ if ($result->num_rows > 0) {
     <td>" . $row["todo"]. "</td>
     <td>
     <form action=" . $submit . " method='post'>
+      <input type='hidden' name='id' value=" . $row["id"] . " readonly>
       <button type='submit'>Delete</button>
       </form>
     </td>
