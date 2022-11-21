@@ -1,7 +1,7 @@
 <?php
 function isogram($names){
     $result=[];
-    $name-strtolower($names);
+    $name=strtolower($names);
     $new_name=str_split($name);
  foreach ($new_name as $gold){
     $x=substr_count ($name,$gold);
@@ -12,9 +12,12 @@ function isogram($names){
  $y=count($result);
  $z=strlen($name);
  if ($y==$z){
-    return "True<br>";}
+    return "True<br>";
+   }
  else{
     return "False<br>";
     }
  }
-}
+ echo isogram("demonster");
+ echo isogram("moOse");
+?>

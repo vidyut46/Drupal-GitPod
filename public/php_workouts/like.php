@@ -21,3 +21,4 @@ echo like([]);
 echo like(['philips']);
 echo like(['philips','zebronics']);
 echo like(['philips','zebronics','sony']);
+?>
